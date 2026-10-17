@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serangan Todak di Singapura - Animasi Pendidikan Sulalatus Salatin</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cinzel Decorative, Amiri (Klasik), Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel+Decorative:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-light: #F3E5AB;
+            --gold-dark: #996515;
+        }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #080705;
+            color: #F8FAFC;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .font-title {
+            font-family: 'Cinzel Decorative', serif;
+        }
+
+        .font-classic {
+            font-family: 'Amiri', serif;
+        }
+
+        /* Bingkai Emas Klasik Melayu */
+        .malay-border {
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(212, 175, 55, 0.15);
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.88) 0%, rgba(10, 12, 20, 0.94) 100%);
+            backdrop-filter: blur(12px);
+        }
+
+        /* Letterbox Sinematik */
+        .letterbox-top {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 60%, transparent 100%);
+        }
+        
+        .letterbox-bottom {
+            background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.8) 65%, transparent 100%);
+        }
+
+        /* Animasi Denyutan Emas */
+        @keyframes pulseGold {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6); }
+            50% { box-shadow: 0 0 20px 6px rgba(212, 175, 55, 0.25); }
+        }
+
+        .btn-gold-pulse {
+            animation: pulseGold 2.5s infinite;
+        }
+
+        /* Custom Scrollbar untuk Modal */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="w-screen h-screen relative flex flex-col justify-between">
+
+    <!-- KANVAS ANIMASI UTAMA (60FPS PSEUDO-3D) -->
+    <canvas id="sceneCanvas" class="absolute inset-0 w-full h-full z-0 block"></canvas>
+
+    <!-- OVERLAY VIGNETTE & GRAIN SINEMATIK -->
+    <div class="absolute inset-0 pointer-events-none z-10" style="box-shadow: inset 0 0 120px rgba(0,0,0,0.85);"></div>
+
+    <!-- SKRIN PERMULAAN (SPLASH SCREEN) -->
+    <div id="splashScreen" class="absolute inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md transition-opacity duration-700">
+        <div class="max-w-2xl w-11/12 p-8 md:p-10 rounded-2xl malay-border text-center relative overflow-hidden">
+            <!-- Hiasan Bucu Kerawang SVG -->
+            <svg class="w-16 h-16 absolute top-2 left-2 text-amber-500/40" viewBox="0 0 100 100" fill="currentColor">
+                <path d="M0,0 L100,0 L100,15 C60,15 40,35 15,100 L0,100 Z"/>
+            </svg>
+            <svg class="w-16 h-16 absolute top-2 right-2 text-amber-500/40 transform scale-x-[-1]" viewBox="0 0 100 100" fill="currentColor">
+                <path d="M0,0 L100,0 L100,15 C60,15 40,35 15,100 L0,100 Z"/>
+            </svg>
+
+            <div class="inline-block px-4 py-1 rounded-full bg-amber-500/10 border border-amber-500/40 text-amber-300 text-xs uppercase tracking-widest mb-4 font-semibold">
+                Adaptasi Karya Agung Sulalatus Salatin (Sejarah Melayu)
+            </div>
+            
+            <h1 class="font-title text-3xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-600 font-bold mb-3 drop-shadow-lg">
+                Serangan Todak Di Singapura
+            </h1>
+            
+            <p class="font-classic text-lg md:text-xl text-slate-300 italic mb-6 max-w-xl mx-auto leading-relaxed">
+                "Maka datanglah todak menyerang Singapura, melompat-lompat seperti hujan yang lebat datangnya..."
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-left mb-8 text-xs text-slate-300 bg-slate-900/70 p-4 rounded-xl border border-slate-800">
+                <div class="flex items-start space-x-2.5">
+                    <span class="text-amber-400 text-base">🎬</span>
+                    <div>
+                        <strong class="text-amber-200 block">Visual Sinematik</strong>
+                        5 Babak lengkap dengan fizik kamera, cuaca & ombak dinamik.
+                    </div>
+                </div>
+                <div class="flex items-start space-x-2.5">
+                    <span class="text-amber-400 text-base">🔊</span>
+                    <div>
+                        <strong class="text-amber-200 block">Audio Sintetik</strong>
+                        Muzik latar gamelan tradisional & kesan bunyi ombak masa nyata.
+                    </div>
+                </div>
+                <div class="flex items-start space-x-2.5">
+                    <span class="text-amber-400 text-base">📜</span>
+                    <div>
+                        <strong class="text-amber-200 block">Fakta Sejarah</strong>
+                        Selaras dengan teks asal naskhah Sulalatus Salatin.
+                    </div>
+                </div>
+            </div>
+
+            <button id="btnStartExperience" class="btn-gold-pulse px-8 py-4 rounded-xl bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 text-slate-950 font-bold text-base md:text-lg tracking-wide hover:brightness-110 active:scale-95 transition-all flex items-center justify-center mx-auto space-x-3 shadow-xl cursor-pointer">
+                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <span>MULAKAN ANIMASI SINEMATIK</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- BAR ATAS: TAJUK & KADFAKTA SEJARAH -->
+    <header class="relative z-20 letterbox-top pt-4 pb-8 px-4 md:px-8 flex flex-wrap justify-between items-start gap-4 pointer-events-none">
+        <!-- Kiri: Identiti & Babak Semasa -->
+        <div class="flex items-center space-x-3 pointer-events-auto">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-yellow-700 flex items-center justify-center shadow-lg border border-amber-300/50">
+                <span class="font-title font-bold text-slate-950 text-xl">S</span>
+            </div>
+            <div>
+                <div class="flex items-center space-x-2">
+                    <span id="badgeBabak" class="px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-full">
+                        BABAK 1 / 5
+                    </span>
+                    <span class="text-xs text-slate-400 hidden sm:inline">• Sulalatus Salatin</span>
+                </div>
+                <h2 id="sceneTitle" class="font-title text-lg md:text-2xl text-amber-100 font-bold tracking-wide drop-shadow">
+                    Keamanan Pantai Temasek (Singapura)
+                </h2>
+            </div>
+        </div>
+
+        <!-- Kanan: Kad Info Sejarah & Butang Nilai Murni -->
+        <div class="flex items-center space-x-2.5 pointer-events-auto">
+            <button id="btnToggleFact" class="px-3.5 py-2 rounded-lg malay-border text-xs md:text-sm text-amber-200 hover:text-white hover:border-amber-400 transition flex items-center space-x-2 cursor-pointer" title="Buka/Tutup Nota Sejarah">
+                <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                <span>Nota Sejarah</span>
+            </button>
+
+            <button id="btnShowMoral" class="px-3.5 py-2 rounded-lg bg-amber-500/20 border border-amber-400/50 text-xs md:text-sm text-amber-200 hover:bg-amber-500/30 transition flex items-center space-x-2 cursor-pointer">
+                <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                <span>Pengajaran</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- KAD NOTA SEJARAH TERAPUNG (BOLEH DITUTUP) -->
+    <aside id="historicalCard" class="absolute top-20 right-4 md:right-8 z-20 max-w-xs md:max-w-sm malay-border p-4 rounded-xl transition-all duration-500 transform translate-x-0 opacity-95">
+        <div class="flex justify-between items-center mb-1.5 border-b border-amber-500/30 pb-1.5">
+            <span class="text-[11px] font-bold uppercase tracking-widest text-amber-400 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                Rujukan Sulalatus Salatin
+            </span>
+            <button id="btnCloseFact" class="text-slate-400 hover:text-white text-xs p-1 cursor-pointer">✕</button>
+        </div>
+        <p id="historicalFactText" class="text-xs md:text-sm text-slate-200 leading-relaxed font-normal">
+            Peristiwa ini berlaku pada zaman pemerintahan <strong class="text-amber-300">Paduka Seri Maharaja</strong>, Raja Singapura yang keempat. Singapura ketika itu merupakan sebuah pelabuhan dan perkampungan pesisir laut yang makmur.
+        </p>
+    </aside>
+
+    <!-- MODAL PENGAJARAN & NILAI MURNI (BABAK AKHIR / KLIK) -->
+    <div id="moralModal" class="fixed inset-0 z-40 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300 p-4">
+        <div class="max-w-2xl w-full malay-border rounded-2xl p-6 md:p-8 relative max-h-[90vh] overflow-y-auto">
+            <button id="btnCloseMoral" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-amber-300 flex items-center justify-center cursor-pointer">✕</button>
+            
+            <div class="text-center mb-6">
+                <span class="px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs uppercase tracking-widest">
+                    Iktibar & Falsafah Pendidikan
+                </span>
+                <h3 class="font-title text-2xl md:text-3xl text-amber-300 mt-2">Pengajaran Kisah Serangan Todak</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-slate-900/80 border border-amber-500/25 p-4 rounded-xl">
+                    <h4 class="font-bold text-amber-300 text-sm mb-1 flex items-center gap-2">
+                        <span>🧠</span> Kebijaksanaan Mengatasi Kekerasan
+                    </h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Akal fikiran yang tajam dan strategi yang tepat (menggunakan batang pisang) mampu menyelesaikan krisis besar tanpa mengorbankan nyawa rakyat secara sia-sia.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/80 border border-amber-500/25 p-4 rounded-xl">
+                    <h4 class="font-bold text-amber-300 text-sm mb-1 flex items-center gap-2">
+                        <span>👦</span> Menghargai Pandangan Golongan Muda
+                    </h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Walaupun Hang Nadim masih kanak-kanak, идеanya bernas dan menyelamatkan negeri. Ilmu dan hikmah tidak mengenal usia atau darjat.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/80 border border-amber-500/25 p-4 rounded-xl">
+                    <h4 class="font-bold text-amber-300 text-sm mb-1 flex items-center gap-2">
+                        <span>👑</span> Kepimpinan yang Mendengar Suara Rakyat
+                    </h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Keputusan awal berkubukan betis membawa bencana, namun kesediaan menerima cadangan baharu daripada rakyat akhirnya menyelamatkan Singapura.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/80 border border-amber-500/25 p-4 rounded-xl">
+                    <h4 class="font-bold text-amber-300 text-sm mb-1 flex items-center gap-2">
+                        <span>🤝</span> Muafakat & Kerjasama Masyarakat
+                    </h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Kejayaan membina benteng batang pisang di sepanjang pantai tercapai hasil gotong-royong dan tindakan pantas seluruh rakyat bersama-sama.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex justify-center gap-3">
+                <button id="btnReplayFromModal" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 font-bold text-sm hover:brightness-110 transition cursor-pointer">
+                    🔄 Main Semula Dari Babak 1
+                </button>
+                <button id="btnDismissMoral" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm transition cursor-pointer">
+                    Tutup Panel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BAHAGIAN BAWAH: SARI KATA SINEMATIK & KAWALAN PEMAIN -->
+    <footer class="relative z-20 letterbox-bottom pt-10 pb-4 px-4 md:px-8 flex flex-col items-center">
+        
+        <!-- KAPSUL SARI KATA NARATIF & DIALOG -->
+        <div class="max-w-4xl w-full malay-border rounded-2xl p-4 md:p-5 mb-4 text-center relative transition-all duration-300">
+            <!-- Petikan Klasik Sulalatus Salatin -->
+            <p id="classicQuote" class="font-classic text-amber-300/95 text-base md:text-lg italic mb-1.5 tracking-wide">
+                "Sebermula maka tersebutlah perkataan negeri Singapura itu sentiasa aman dan makmur..."
+            </p>
+            <!-- Naratif Bahasa Melayu Baku -->
+            <p id="mainSubtitle" class="text-slate-100 text-sm md:text-base font-medium leading-relaxed">
+                Pada zaman pemerintahan Paduka Seri Maharaja, suasana di pesisir pantai Singapura amat damai. Rakyat hidup sejahtera menangkap ikan dan berdagang.
+            </p>
+        </div>
+
+        <!-- PANEL KAWALAN INTERAKTIF (PLAY, PAUSE, REPLAY, SCRUBBER, BABAK 1-5, AUDIO) -->
+        <div class="max-w-5xl w-full bg-slate-950/90 border border-slate-800/90 rounded-xl px-4 py-3 flex flex-col gap-2.5 shadow-2xl">
+            
+            <!-- Bar Garis Masa (Timeline Scrubber) & Pemilih Babak -->
+            <div class="flex flex-col sm:flex-row items-center gap-3">
+                <!-- Pemilih Pantas 5 Babak -->
+                <div class="flex items-center space-x-1.5 w-full sm:w-auto justify-center">
+                    <button data-scene="0" class="scene-tab px-2.5 py-1 rounded text-xs font-semibold transition cursor-pointer bg-amber-500 text-slate-950">Babak 1</button>
+                    <button data-scene="1" class="scene-tab px-2.5 py-1 rounded text-xs font-semibold transition cursor-pointer bg-slate-800 text-slate-300 hover:bg-slate-700">Babak 2</button>
+                    <button data-scene="2" class="scene-tab px-2.5 py-1 rounded text-xs font-semibold transition cursor-pointer bg-slate-800 text-slate-300 hover:bg-slate-700">Babak 3</button>
+                    <button data-scene="3" class="scene-tab px-2.5 py-1 rounded text-xs font-semibold transition cursor-pointer bg-slate-800 text-slate-300 hover:bg-slate-700">Babak 4</button>
+                    <button data-scene="4" class="scene-tab px-2.5 py-1 rounded text-xs font-semibold transition cursor-pointer bg-slate-800 text-slate-300 hover:bg-slate-700">Babak 5</button>
+                </div>
+
+                <!-- Slider Garis Masa Keseluruhan -->
+                <div class="flex-1 w-full flex items-center space-x-3">
+                    <input id="timelineSlider" type="range" min="0" max="1000" value="0" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400">
+                    <span id="timeDisplay" class="text-xs font-mono text-amber-300 whitespace-nowrap w-20 text-right">00:00 / 01:15</span>
+                </div>
+            </div>
+
+            <!-- Baris Butang Kawalan Utama -->
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/80">
+                <!-- Kiri: Main, Jeda, Ulang -->
+                <div class="flex items-center space-x-2">
+                    <button id="btnPlay" class="px-4 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs md:text-sm flex items-center space-x-1.5 transition cursor-pointer shadow">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span>Main</span>
+                    </button>
+
+                    <button id="btnPause" class="px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs md:text-sm flex items-center space-x-1.5 transition cursor-pointer border border-slate-700">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                        <span>Jeda</span>
+                    </button>
+
+                    <button id="btnReplay" class="px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs md:text-sm flex items-center space-x-1.5 transition cursor-pointer border border-slate-700">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+                        <span>Ulang</span>
+                    </button>
+                </div>
+
+                <!-- Tengah: Petunjuk Status Animasi -->
+                <div class="hidden md:flex items-center space-x-2 text-xs text-slate-400">
+                    <span id="statusIndicator" class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <span id="statusText">Sedang Dimainkan (60 FPS Sinematik)</span>
+                </div>
+
+                <!-- Kanan: Kawalan Audio Sintetik -->
+                <div class="flex items-center space-x-2">
+                    <button id="btnMute" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs font-medium flex items-center space-x-1.5 transition cursor-pointer border border-slate-700" title=" Hidup/Matikan Bunyi & Muzik Gamelan">
+                        <svg id="iconSoundOn" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                        <svg id="iconSoundOff" class="w-4 h-4 hidden text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/></svg>
+                        <span id="muteLabel">Audio: Aktif</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SKRIP UTAMA: ENJIN VISUAL PSEUDO-3D, NARATIF & AUDIO SINTETIK -->
+    <script>
+        /**************************************************************************
+         * 1. DATA SKRIP & NARATIF 5 BABAK (SELARAS DENGAN SULALATUS SALATIN)
+         **************************************************************************/
+        const SCENE_DURATION = 15; // 15 saat setiap babak = 75 saat keseluruhan
+        const TOTAL_DURATION = SCENE_DURATION * 5;
+
+        const SCENES = [
+            {
+                id: 1,
+                title: "Babak 1: Keamanan Pantai Singapura",
+                classic: "“Sebermula maka tersebutlah perkataan negeri Singapura itu sentiasa aman dan makmur di bawah perintah Paduka Seri Maharaja...”",
+                subtitles: [
+                    { start: 0, end: 5, text: "Pada zaman kerajaan Melayu tradisional di bawah pemerintahan Paduka Seri Maharaja, suasana pantai Singapura amat damai dan permai." },
+                    { start: 5, end: 10, text: "Kelihatan perahu-perahu tradisional berlayar tenang, pokok kelapa melambai ditiup bayu, dan rumah kayu beratap nipah di pesisir pantai." },
+                    { start: 10, end: 15, text: "Rakyat jelata hidup aman damai menjalankan kegiatan harian di tepi pantai tanpa menyangka satu bencana besar bakal melanda." }
+                ],
+                fact: "Singapura (dahulunya dikenali sebagai Temasek) dibuka oleh Sang Nila Utama. Peristiwa serangan todak ini berlaku semasa pemerintahan cicit baginda, iaitu Paduka Seri Maharaja."
+            },
+            {
+                id: 2,
+                title: "Babak 2: Serangan Ikan Todak dari Laut",
+                classic: "“Maka datanglah todak menyerang Singapura, melompat-lompat seperti hujan yang lebat datangnya ke darat!”",
+                subtitles: [
+                    { start: 0, end: 5, text: "Secara tiba-tiba, langit bertukar gelap kemerahan dan ombak laut bergelora dengan amat dahsyat!" },
+                    { start: 5, end: 10, text: "Sekumpulan besar ikan todak yang bermuncung panjang dan tajam melompat dengan laju dari laut menuju terus ke arah pantai Singapura." },
+                    { start: 10, end: 15, text: "Lompatan ikan-ikan todak yang tidak terhitung banyaknya itu membadai pantai bagaikan anak panah yang dilepaskan dari busur." }
+                ],
+                fact: "Ikan todak (Garfish / Tylosurus) mempunyai rahang berparuh panjang dan tajam seperti lembing serta mampu melompat keluar dari permukaan air pada kelajuan tinggi."
+            },
+            {
+                id: 3,
+                title: "Babak 3: Titah Berkubukan Betis Rakyat",
+                classic: "“Maka titah Paduka Seri Maharaja pada segala rakyat: Berkotakan betislah kita! Maka segala rakyat pun berkotakan betislah...”",
+                subtitles: [
+                    { start: 0, end: 5, text: "Berita gempar itu sampai kepada Paduka Seri Maharaja. Baginda segera berangkat ke pantai bersama para pembesar dengan menunggang gajah." },
+                    { start: 5, end: 10, text: "Paduka Seri Maharaja menitahkan seluruh rakyat berdiri rapat di sepanjang pantai untuk menjadikan betis mereka sebagai kubu pertahanan." },
+                    { start: 10, end: 15, text: "Namun apabila todak melompat menyerang, muncung tajamnya menembusi betis rakyat! Ramai yang terkorban dan suasana menjadi amat cemas." }
+                ],
+                fact: "Dalam teks Sulalatus Salatin digambarkan: 'Barang yang kena lompat oleh todak itu terus-menerus, mati; maka terlalu banyaklah orang mati sebab kena todak itu.'"
+            },
+            {
+                id: 4,
+                title: "Babak 4: Kebijaksanaan Hang Nadim",
+                classic: "“Apa kerja kita berkubukan betis ini? Mendayakan diri kita! Alangkah baiknya jika kita berkubukan batang pisang!”",
+                subtitles: [
+                    { start: 0, end: 5, text: "Di tengah-tengah kekalutan dan ketakutan rakyat, tampil seorang budak lelaki yang pintar bernama Hang Nadim ke hadapan baginda." },
+                    { start: 5, end: 10, text: "Dengan penuh berani dan berhikmah, Hang Nadim berkata: 'Apa kerja kita berkubukan betis ini? Alangkah baiknya jika kita berkubukan batang pisang.'" },
+                    { start: 10, end: 15, text: "Mendengar cadangan bernas budak itu, Paduka Seri Maharaja bersetuju: 'Benarlah seperti kata kanak-kanak ini!' lalu menitahkan rakyat mengambil batang pisang." }
+                ],
+                fact: "Hang Nadim merupakan simbol kecerdikan akal kanak-kanak dalam kesusasteraan Melayu klasik yang berfikir secara saintifik (menggunakan struktur lembut berair batang pisang untuk memerangkap muncung todak)."
+            },
+            {
+                id: 5,
+                title: "Babak 5: Benteng Batang Pisang & Kemenangan",
+                classic: "“Maka segala todak yang melompat itu pun lekatlah jongornya pada batang pisang itu; maka dibunuh oranglah bertimbun-timbun...”",
+                subtitles: [
+                    { start: 0, end: 5, text: "Seluruh rakyat segera bergotong-royong menebang pokok pisang dan memacakkan deretan batang pisang menjadi benteng kukuh di sepanjang pantai." },
+                    { start: 5, end: 10, text: "Apabila ribuan ikan todak melompat menyerang pantai, muncung tajamnya tercacak dalam dan tersangkut rapat pada batang-batang pisang tersebut!" },
+                    { start: 10, end: 15, text: "Rakyat kemudian keluar menetak dan menghapuskan todak-todak yang tersangkut itu. Berkat kebijaksanaan Hang Nadim, negeri Singapura kembali aman dan selamat!" }
+                ],
+                fact: "Strategi batang pisang berjaya sepenuhnya kerana serat batang pisang yang tebal dan lembut menyerap hentaman laju todak dan mengunci muncungnya yang bergerigi."
+            }
+        ];
+
+        /**************************************************************************
+         * 2. ENJIN AUDIO SINTETIK (WEB AUDIO API - TANPA FAIL MP3 LUARAN)
+         **************************************************************************/
+        class SoundEngine {
+            constructor() {
+                this.ctx = null;
+                this.isMuted = false;
+                this.isInitialized = false;
+                this.oceanGain = null;
+                this.lastGamelanTime = 0;
+                // Skala Pentatonik Pelog/Slendro Tradisional
+                this.scales = {
+                    peaceful: [261.63, 293.66, 329.63, 392.00, 440.00, 523.25],
+                    tense: [220.00, 233.08, 293.66, 311.13, 392.00, 440.00],
+                    victory: [261.63, 329.63, 392.00, 493.88, 523.25, 659.25]
+                };
+            }
+
+            init() {
+                if (this.isInitialized) return;
+                try {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    this.ctx = new AudioContext();
+                    this.setupOceanAmbience();
+                    this.isInitialized = true;
+                } catch (e) {
+                    console.warn("Web Audio API tidak disokong:", e);
+                }
+            }
+
+            setupOceanAmbience() {
+                if (!this.ctx) return;
+                // Jana White Noise untuk deruan ombak laut
+                const bufferSize = 2 * this.ctx.sampleRate;
+                const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+                const output = noiseBuffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    output[i] = Math.random() * 2 - 1;
+                }
+
+                const whiteNoise = this.ctx.createBufferSource();
+                whiteNoise.buffer = noiseBuffer;
+                whiteNoise.loop = true;
+
+                this.oceanFilter = this.ctx.createBiquadFilter();
+                this.oceanFilter.type = 'lowpass';
+                this.oceanFilter.frequency.value = 350;
+
+                this.oceanGain = this.ctx.createGain();
+                this.oceanGain.gain.value = 0.06;
+
+                whiteNoise.connect(this.oceanFilter);
+                this.oceanFilter.connect(this.oceanGain);
+                this.oceanGain.connect(this.ctx.destination);
+                whiteNoise.start(0);
+            }
+
+            updateAmbience(sceneIndex, sceneTime, isPlaying) {
+                if (!this.isInitialized || !this.ctx) return;
+                if (this.ctx.state === 'suspended' && isPlaying) {
+                    this.ctx.resume();
+                }
+
+                if (this.isMuted || !isPlaying) {
+                    if (this.oceanGain) this.oceanGain.gain.setTargetAtTime(0, this.ctx.currentTime, 0.1);
+                    return;
+                }
+
+                // Alunan ombak laut mengikut babak (Babak 2 & 3 lebih kuat)
+                const isStorm = (sceneIndex === 1 || sceneIndex === 2);
+                const baseVol = isStorm ? 0.11 : 0.045;
+                const waveMod = Math.sin(sceneTime * 1.8) * 0.025;
+                this.oceanGain.gain.setTargetAtTime(Math.max(0.01, baseVol + waveMod), this.ctx.currentTime, 0.2);
+                this.oceanFilter.frequency.setTargetAtTime(isStorm ? 650 : 320, this.ctx.currentTime, 0.3);
+
+                // Mainkan not Gamelan sintetik secara berkala
+                const now = this.ctx.currentTime;
+                const interval = isStorm ? 0.45 : (sceneIndex === 3 ? 0.85 : 0.65);
+                if (now - this.lastGamelanTime > interval) {
+                    this.playGamelanNote(sceneIndex);
+                    this.lastGamelanTime = now;
+                }
+            }
+
+            playGamelanNote(sceneIndex) {
+                if (this.isMuted || !this.ctx) return;
+                let scale = this.scales.peaceful;
+                if (sceneIndex === 1 || sceneIndex === 2) scale = this.scales.tense;
+                if (sceneIndex === 4) scale = this.scales.victory;
+
+                const freq = scale[Math.floor(Math.random() * scale.length)];
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+
+                // Gabungan gelombang sine + harmoni logam gamelan (bonang/saron)
+                osc.type = (sceneIndex === 1 || sceneIndex === 2) ? 'triangle' : 'sine';
+                osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+
+                gain.gain.setValueAtTime(0.001, this.ctx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.05, this.ctx.currentTime + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 1.4);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 1.45);
+            }
+
+            playTodakSwoosh(isHitBanana = false) {
+                if (!this.isInitialized || this.isMuted || !this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+
+                if (isHitBanana) {
+                    // Bunyi 'Thud' tercacak pada batang pisang
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(160, now);
+                    osc.frequency.exponentialRampToValueAtTime(45, now + 0.14);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.16);
+                } else {
+                    // Bunyi 'Swoosh' todak melompat laju
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, now);
+                    osc.frequency.exponentialRampToValueAtTime(180, now + 0.18);
+                    gain.gain.setValueAtTime(0.04, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.19);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.2);
+                }
+            }
+
+            toggleMute() {
+                this.isMuted = !this.isMuted;
+                return this.isMuted;
+            }
+        }
+
+        const soundEngine = new SoundEngine();
+
+        /**************************************************************************
+         * 3. PEMBANTU MATEMATIK & INTERPOLASI WARNA SINEMATIK
+         **************************************************************************/
+        function lerp(a, b, t) {
+            return a + (b - a) * Math.max(0, Math.min(1, t));
+        }
+
+        function lerpColor(hex1, hex2, t) {
+            const c1 = parseInt(hex1.slice(1), 16);
+            const c2 = parseInt(hex2.slice(1), 16);
+            const r = Math.round(lerp((c1 >> 16) & 255, (c2 >> 16) & 255, t));
+            const g = Math.round(lerp((c1 >> 8) & 255, (c2 >> 8) & 255, t));
+            const b = Math.round(lerp(c1 & 255, c2 & 255, t));
+            return `rgb(${r},${g},${b})`;
+        }
+
+        /**************************************************************************
+         * 4. ENJIN ANIMASI UTAMA & SISTEM ENTITI (CANVAS 2D / PSEUDO-3D)
+         **************************************************************************/
+        const canvas = document.getElementById('sceneCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width * window.devicePixelRatio;
+            canvas.height = height * window.devicePixelRatio;
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Status Pemain
+        let isPlaying = false;
+        let globalTime = 0; // 0 hingga 75 saat
+        let lastFrameTime = performance.now();
+        let moralShownAutomatically = false;
+
+        // Senarai Entiti Dinamik
+        let clouds = [];
+        let todakList = [];
+        let particles = [];
+        let stuckTodaks = [];
+        let lightningAlpha = 0;
+        let cameraShake = 0;
+
+        // Jana awan awal
+        for (let i = 0; i < 8; i++) {
+            clouds.push({
+                x: Math.random() * 1600,
+                y: 50 + Math.random() * 130,
+                scale: 0.6 + Math.random() * 0.9,
+                speed: 8 + Math.random() * 12
+            });
+        }
+
+        // Fungsi Jana Ikan Todak Melompat dari Laut (Kiri) ke Pantai (Kanan)
+        function spawnTodak(sceneIndex, sceneTime) {
+            const startX = -50 + Math.random() * (width * 0.32);
+            const startY = height * (0.64 + Math.random() * 0.22);
+            
+            // Sasaran pendaratan di pantai
+            const shoreStartX = width * 0.50;
+            let targetX = shoreStartX + Math.random() * (width * 0.35);
+            let targetY = height * (0.60 + Math.random() * 0.22);
+
+            // Jika Babak 5 (Benteng Batang Pisang), todak disasarkan tepat ke barisan batang pisang
+            const isBananaDefense = (sceneIndex === 4 && sceneTime > 3.2);
+            if (isBananaDefense) {
+                const trunkIndex = Math.floor(Math.random() * 9);
+                targetX = width * 0.49 + trunkIndex * (width * 0.024);
+                targetY = height * (0.57 + (trunkIndex % 3) * 0.06 + Math.random() * 0.04);
+            }
+
+            const flightDuration = 0.65 + Math.random() * 0.35;
+            const vx = (targetX - startX) / flightDuration;
+            const gravity = 720;
+            const vy = (targetY - startY - 0.5 * gravity * flightDuration * flightDuration) / flightDuration;
+
+            todakList.push({
+                x: startX,
+                y: startY,
+                vx: vx,
+                vy: vy,
+                gravity: gravity,
+                angle: 0,
+                length: 46 + Math.random() * 18,
+                targetX: targetX,
+                targetY: targetY,
+                willStickToBanana: isBananaDefense,
+                elapsed: 0,
+                maxTime: flightDuration
+            });
+
+            // Percikan air semasa todak melompat keluar dari laut
+            spawnWaterSplash(startX, startY, 6, '#e0f2fe');
+            if (Math.random() < 0.35) soundEngine.playTodakSwoosh(false);
+        }
+
+        function spawnWaterSplash(x, y, count, color = '#e0f2fe') {
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 140,
+                    vy: -60 - Math.random() * 130,
+                    size: 2 + Math.random() * 3.5,
+                    color: color,
+                    alpha: 1,
+                    life: 0.4 + Math.random() * 0.4
+                });
+            }
+        }
+
+        /**************************************************************************
+         * 5. LUKISAN ELEMEN VISUAL PSEUDO-3D (LANGIT, LAUT, PERAHU, MANUSIA, TODAK)
+         **************************************************************************/
+
+        // Palet Pencahayaan Mengikut Babak (1-5)
+        const SCENE_PALETTES = [
+            // Babak 1: Pagi Keemasan Damai
+            { skyTop: '#0f4c81', skyMid: '#38bdf8', skyBot: '#fde68a', seaDeep: '#0369a1', seaMid: '#0284c7', seaSurf: '#38bdf8', sand: '#eab308', sunAlpha: 1.0 },
+            // Babak 2: Ribut Gelap Kemerahan
+            { skyTop: '#090d16', skyMid: '#31102f', skyBot: '#7f1d1d', seaDeep: '#0f172a', seaMid: '#1e293b', seaSurf: '#475569', sand: '#78350f', sunAlpha: 0.15 },
+            // Babak 3: Cemas & Berdarah
+            { skyTop: '#180505', skyMid: '#450a0a', skyBot: '#991b1b', seaDeep: '#111827', seaMid: '#1f2937', seaSurf: '#374151', sand: '#713f12', sunAlpha: 0.1 },
+            // Babak 4: Sinar Harapan (Hang Nadim)
+            { skyTop: '#0f172a', skyMid: '#1e3a8a', skyBot: '#f59e0b', seaDeep: '#0c4a6e', seaMid: '#0369a1', seaSurf: '#0284c7', sand: '#ca8a04', sunAlpha: 0.65 },
+            // Babak 5: Cahaya Kemenangan
+            { skyTop: '#064e3b', skyMid: '#0284c7', skyBot: '#fef08a', seaDeep: '#0369a1', seaMid: '#0ea5e9', seaSurf: '#38bdf8', sand: '#eab308', sunAlpha: 1.0 }
+        ];
+
+        function getBlendedPalette(sceneIndex, sceneTime) {
+            const current = SCENE_PALETTES[sceneIndex];
+            const next = SCENE_PALETTES[Math.min(4, sceneIndex + 1)];
+            // peralihan lembut 2 saat terakhir setiap babak
+            const blend = sceneTime > (SCENE_DURATION - 2) ? (sceneTime - (SCENE_DURATION - 2)) / 2 : 0;
+            return {
+                skyTop: lerpColor(current.skyTop, next.skyTop, blend),
+                skyMid: lerpColor(current.skyMid, next.skyMid, blend),
+                skyBot: lerpColor(current.skyBot, next.skyBot, blend),
+                seaDeep: lerpColor(current.seaDeep, next.seaDeep, blend),
+                seaMid: lerpColor(current.seaMid, next.seaMid, blend),
+                seaSurf: lerpColor(current.seaSurf, next.seaSurf, blend),
+                sand: lerpColor(current.sand, next.sand, blend),
+                sunAlpha: lerp(current.sunAlpha, next.sunAlpha, blend)
+            };
+        }
+
+        // Lukis Langit, Matahari, Kilat & Kepulauan Jauh
+        function drawSkyAndHorizon(palette, sceneIndex, time) {
+            const grad = ctx.createLinearGradient(0, 0, 0, height * 0.62);
+            grad.addColorStop(0, palette.skyTop);
+            grad.addColorStop(0.55, palette.skyMid);
+            grad.addColorStop(1, palette.skyBot);
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, width, height * 0.65);
+
+            // Matahari Sinematik & Sinaran (God Rays)
+            const sunX = width * 0.25;
+            const sunY = height * 0.28;
+            if (palette.sunAlpha > 0.05) {
+                ctx.save();
+                ctx.globalAlpha = palette.sunAlpha;
+                const sunGrad = ctx.createRadialGradient(sunX, sunY, 10, sunX, sunY, 180);
+                sunGrad.addColorStop(0, '#fffbeb');
+                sunGrad.addColorStop(0.25, '#fde047');
+                sunGrad.addColorStop(0.6, 'rgba(245, 158, 11, 0.35)');
+                sunGrad.addColorStop(1, 'rgba(245, 158, 11, 0)');
+                ctx.fillStyle = sunGrad;
+                ctx.beginPath();
+                ctx.arc(sunX, sunY, 180, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            // Pancaran Kilat semasa Babak 2 & 3
+            if ((sceneIndex === 1 || sceneIndex === 2) && Math.random() < 0.018 && isPlaying) {
+                lightningAlpha = 0.75;
+                cameraShake = 8;
+            }
+            if (lightningAlpha > 0) {
+                ctx.fillStyle = `rgba(255, 255, 255, ${lightningAlpha})`;
+                ctx.fillRect(0, 0, width, height);
+                lightningAlpha = Math.max(0, lightningAlpha - 0.06);
+            }
+
+            // Awan Berlapis
+            clouds.forEach(c => {
+                if (isPlaying) {
+                    const speedMult = (sceneIndex === 1 || sceneIndex === 2) ? 3.2 : 1;
+                    c.x += (c.speed * speedMult) * 0.016;
+                    if (c.x > width + 200) c.x = -200;
+                }
+                ctx.save();
+                ctx.translate(c.x, c.y);
+                ctx.scale(c.scale, c.scale);
+                ctx.fillStyle = (sceneIndex === 1 || sceneIndex === 2) ? 'rgba(30, 27, 46, 0.75)' : 'rgba(255, 255, 255, 0.45)';
+                ctx.beginPath();
+                ctx.arc(0, 0, 35, 0, Math.PI * 2);
+                ctx.arc(30, -10, 45, 0, Math.PI * 2);
+                ctx.arc(70, 0, 35, 0, Math.PI * 2);
+                ctx.arc(35, 12, 30, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            });
+
+            // Siluet Bukit / Pulau Belakang di Ufuk (Parallax)
+            ctx.fillStyle = (sceneIndex === 1 || sceneIndex === 2) ? '#111827' : '#1e3a5f';
+            ctx.beginPath();
+            ctx.moveTo(0, height * 0.56);
+            ctx.quadraticCurveTo(width * 0.12, height * 0.47, width * 0.28, height * 0.56);
+            ctx.quadraticCurveTo(width * 0.38, height * 0.51, width * 0.52, height * 0.56);
+            ctx.lineTo(0, height * 0.60);
+            ctx.fill();
+        }
+
+        // Lukis Perahu Layar Melayu Tradisional (Kolek / Jong Kecil)
+        function drawTraditionalBoat(x, y, scale, time, isStorm) {
+            const bobY = Math.sin(time * (isStorm ? 5 : 2) + x * 0.02) * (isStorm ? 8 : 3.5);
+            const tilt = Math.cos(time * (isStorm ? 4.5 : 1.8) + x * 0.01) * (isStorm ? 0.16 : 0.04);
+
+            ctx.save();
+            ctx.translate(x, y + bobY);
+            ctx.rotate(tilt);
+            ctx.scale(scale, scale);
+
+            // Badan Perahu Kayu
+            ctx.fillStyle = '#451a03';
+            ctx.beginPath();
+            ctx.moveTo(-45, 0);
+            ctx.quadraticCurveTo(-55, -14, -60, -20); // Haluan melengkung klasik
+            ctx.lineTo(-40, -6);
+            ctx.lineTo(40, -6);
+            ctx.quadraticCurveTo(55, -14, 58, -18);
+            ctx.lineTo(42, 6);
+            ctx.quadraticCurveTo(0, 14, -45, 0);
+            ctx.closePath();
+            ctx.fill();
+
+            // Jalur Emas Perahu
+            ctx.strokeStyle = '#d97706';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(-42, -2);
+            ctx.lineTo(42, -2);
+            ctx.stroke();
+
+            // Tiang & Layar Tradisional
+            ctx.strokeStyle = '#78350f';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(0, -6);
+            ctx.lineTo(0, -75);
+            ctx.stroke();
+
+            // Kain Layar
+            ctx.fillStyle = isStorm ? '#94a3b8' : '#fef3c7';
+            ctx.beginPath();
+            ctx.moveTo(0, -72);
+            ctx.quadraticCurveTo(32, -45, 26, -15);
+            ctx.lineTo(0, -18);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        // Lukis Ombak Laut Berlapis & Pantai Singapura
+        function drawSeaAndBeach(palette, sceneIndex, time) {
+            const isStorm = (sceneIndex === 1 || sceneIndex === 2);
+            const waveSpeed = isStorm ? 4.2 : 1.6;
+            const waveAmp = isStorm ? 14 : 5;
+
+            // 3 Lapisan Laut (Belakang ke Depan)
+            const layers = [
+                { yBase: height * 0.56, color: palette.seaDeep, amp: waveAmp * 0.6, freq: 0.012, speed: waveSpeed * 0.7 },
+                { yBase: height * 0.61, color: palette.seaMid, amp: waveAmp * 0.9, freq: 0.016, speed: waveSpeed * 1.0 },
+                { yBase: height * 0.67, color: palette.seaSurf, amp: waveAmp * 1.2, freq: 0.020, speed: waveSpeed * 1.3 }
+            ];
+
+            layers.forEach((layer, idx) => {
+                // Lukis perahu di antara lapisan pertama dan kedua
+                if (idx === 1) {
+                    const boatX = (width * 0.18) + Math.sin(time * 0.3) * 25;
+                    drawTraditionalBoat(boatX, height * 0.58, 0.75, time, isStorm);
+                    if (sceneIndex === 0 || sceneIndex === 4) {
+                        drawTraditionalBoat(width * 0.07, height * 0.56, 0.5, time + 2, isStorm);
+                    }
+                }
+
+                ctx.fillStyle = layer.color;
+                ctx.beginPath();
+                ctx.moveTo(0, height);
+                for (let x = 0; x <= width; x += 20) {
+                    const y = layer.yBase + Math.sin(x * layer.freq + time * layer.speed + idx) * layer.amp;
+                    ctx.lineTo(x, y);
+                }
+                ctx.lineTo(width, height);
+                ctx.closePath();
+                ctx.fill();
+            });
+
+            // Daratan Pantai Berpasir (Sebelah Kanan & Tengah-Kanan)
+            const shoreGrad = ctx.createLinearGradient(width * 0.35, height * 0.55, width, height);
+            shoreGrad.addColorStop(0, '#fef08a'); // Buih/Gigi air
+            shoreGrad.addColorStop(0.08, palette.sand);
+            shoreGrad.addColorStop(0.7, '#78350f');
+            shoreGrad.addColorStop(1, '#451a03');
+
+            ctx.fillStyle = shoreGrad;
+            ctx.beginPath();
+            ctx.moveTo(width * 0.32, height);
+            // Lengkung gigi pantai dengan alunan buih ombak
+            const surfOffset = Math.sin(time * waveSpeed) * (isStorm ? 18 : 8);
+            ctx.bezierCurveTo(
+                width * 0.38 + surfOffset, height * 0.78,
+                width * 0.44 + surfOffset, height * 0.63,
+                width * 0.54, height * 0.54
+            );
+            ctx.lineTo(width, height * 0.48);
+            ctx.lineTo(width, height);
+            ctx.closePath();
+            ctx.fill();
+
+            // Garisan Buih Putih di Gigi Pantai
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.65)';
+            ctx.lineWidth = isStorm ? 6 : 3;
+            ctx.beginPath();
+            ctx.moveTo(width * 0.33 + surfOffset, height);
+            ctx.bezierCurveTo(
+                width * 0.39 + surfOffset, height * 0.78,
+                width * 0.45 + surfOffset, height * 0.63,
+                width * 0.55, height * 0.54
+            );
+            ctx.stroke();
+        }
+
+        // Lukis Rumah Melayu Tradisional Beratap Nipah (Bertفtiang)
+        function drawMalayKampungHouse(x, y, scale, isLit) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.scale(scale, scale);
+
+            // Tiang Rumah (Rumah Panggung)
+            ctx.fillStyle = '#3f1d0b';
+            [-45, -15, 15, 45].forEach(px => {
+                ctx.fillRect(px - 3, 0, 6, 32);
+            });
+
+            // Tangga Kayu Hadapan
+            ctx.strokeStyle = '#78350f';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(-25, 5);
+            ctx.lineTo(-42, 32);
+            ctx.moveTo(-15, 5);
+            ctx.lineTo(-32, 32);
+            ctx.stroke();
+
+            // Dinding Kayu Berkelarai
+            ctx.fillStyle = '#78350f';
+            ctx.fillRect(-55, -42, 110, 45);
+            ctx.strokeStyle = '#451a03';
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(-55, -42, 110, 45);
+
+            // Tingkap Bercahaya Pelita
+            ctx.fillStyle = isLit ? '#fbbf24' : '#fde68a';
+            ctx.fillRect(-35, -30, 18, 20);
+            ctx.fillRect(15, -30, 18, 20);
+
+            // Bumbung Atap Nipah (Gaya Bumbung Panjang / Lentik)
+            ctx.fillStyle = '#5c4033';
+            ctx.beginPath();
+            ctx.moveTo(-72, -38);
+            ctx.quadraticCurveTo(0, -88, 72, -38);
+            ctx.lineTo(58, -38);
+            ctx.lineTo(-58, -38);
+            ctx.closePath();
+            ctx.fill();
+
+            // Perabung Emas/Kayu Klasik
+            ctx.strokeStyle = '#b45309';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(-74, -38);
+            ctx.quadraticCurveTo(0, -90, 74, -38);
+            ctx.stroke();
+
+            ctx.restore();
+        }
+
+        // Lukis Pokok Kelapa Melambai Ditiup Angin
+        function drawCoconutTree(x, y, scale, time, isStorm) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.scale(scale, scale);
+
+            const windSway = Math.sin(time * (isStorm ? 4.5 : 1.5) + x) * (isStorm ? 22 : 7);
+
+            // Batang Pokok Kelapa Melengkung
+            ctx.strokeStyle = '#57361a';
+            ctx.lineWidth = 11;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.quadraticCurveTo(-15 + windSway * 0.4, -75, -25 + windSway, -145);
+            ctx.stroke();
+
+            // Buah Kelapa di Puncak
+            const topX = -25 + windSway;
+            const topY = -145;
+            ctx.fillStyle = '#3f6212';
+            ctx.beginPath();
+            ctx.arc(topX - 5, topY + 6, 6, 0, Math.PI * 2);
+            ctx.arc(topX + 5, topY + 5, 6, 0, Math.PI * 2);
+            ctx.arc(topX, topY + 10, 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Pelepah Daun Kelapa
+            const angles = [-2.6, -2.0, -1.4, -0.6, -0.1, 0.4];
+            angles.forEach((ang, i) => {
+                ctx.save();
+                ctx.translate(topX, topY);
+                const leafSway = Math.sin(time * (isStorm ? 6 : 2) + i) * (isStorm ? 0.25 : 0.08);
+                ctx.rotate(ang + leafSway);
+
+                ctx.fillStyle = i % 2 === 0 ? '#15803d' : '#166534';
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.quadraticCurveTo(35, -18, 72, 8);
+                ctx.quadraticCurveTo(35, -4, 0, 0);
+                ctx.fill();
+                ctx.restore();
+            });
+
+            ctx.restore();
+        }
+
+        // Lukis Gajah Diraja & Paduka Seri Maharaja
+        function drawRoyalElephantAndKing(x, y, scale, time) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.scale(scale, scale);
+
+            const breathe = Math.sin(time * 2) * 1.5;
+
+            // Kaki Gajah
+            ctx.fillStyle = '#475569';
+            ctx.fillRect(-35, 10, 16, 38);
+            ctx.fillRect(-10, 12, 15, 36);
+            ctx.fillRect(15, 12, 15, 36);
+            ctx.fillRect(35, 10, 16, 38);
+
+            // Badan Gajah
+            ctx.fillStyle = '#64748b';
+            ctx.beginPath();
+            ctx.ellipse(5, -5 + breathe, 52, 34, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Kain Perhiasan Diraja di Atas Belakang Gajah
+            ctx.fillStyle = '#991b1b';
+            ctx.fillRect(-26, -36 + breathe, 56, 34);
+            ctx.strokeStyle = '#fbbf24';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(-26, -36 + breathe, 56, 34);
+
+            // Kepala & Belalai Gajah (Menghadap ke Kiri ke arah Laut)
+            ctx.fillStyle = '#64748b';
+            ctx.beginPath();
+            ctx.arc(-45, -18 + breathe, 24, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Belalai
+            ctx.lineWidth = 10;
+            ctx.strokeStyle = '#64748b';
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(-62, -12 + breathe);
+            ctx.quadraticCurveTo(-78, 10, -66, 26);
+            ctx.stroke();
+
+            // Gading Putih
+            ctx.strokeStyle = '#fefce8';
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.moveTo(-55, -4 + breathe);
+            ctx.quadraticCurveTo(-78, -2, -82, -12);
+            ctx.stroke();
+
+            // Rengga (Tempat Duduk Raja) & Payung Diraja Kuning
+            ctx.fillStyle = '#b45309';
+            ctx.fillRect(-18, -52 + breathe, 40, 16);
+
+            // Paduka Seri Maharaja di Atas Rengga
+            ctx.fillStyle = '#facc15'; // Persalinan Diraja Kuning
+            ctx.fillRect(-8, -76 + breathe, 18, 26);
+            ctx.fillStyle = '#d97706'; // Tanjak Diraja
+            ctx.beginPath();
+            ctx.arc(1, -84 + breathe, 8, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(-6, -88 + breathe);
+            ctx.lineTo(10, -98 + breathe);
+            ctx.lineTo(8, -84 + breathe);
+            ctx.fill();
+
+            // Payung Ubur-Ubur Kuning Diraja
+            ctx.strokeStyle = '#78350f';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(16, -50 + breathe);
+            ctx.lineTo(16, -125 + breathe);
+            ctx.stroke();
+
+            ctx.fillStyle = '#eab308';
+            ctx.beginPath();
+            ctx.arc(16, -120 + breathe, 32, Math.PI, 0);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        // Lukis Watak Manusia (Rakyat / Hang Nadim)
+        function drawMalayCharacter(opts) {
+            const {
+                x, y, scale = 1,
+                bajuColor = '#dc2626',
+                kainColor = '#b45309',
+                isChild = false,
+                pose = 'idle', // 'idle', 'betis_shield', 'fallen', 'pointing', 'celebrating'
+                time = 0
+            } = opts;
+
+            ctx.save();
+            ctx.translate(x, y);
+            const finalScale = isChild ? scale * 0.68 : scale;
+            ctx.scale(finalScale, finalScale);
+
+            if (pose === 'fallen') {
+                ctx.rotate(Math.PI * 0.42);
+            }
+
+            const bob = Math.sin(time * 4 + x) * 1.5;
+
+            // Betis & Kaki (Ditonjolkan jelas pada Babak 3: Berkubukan Betis)
+            ctx.strokeStyle = '#c2855a';
+            ctx.lineWidth = pose === 'betis_shield' ? 6.5 : 5;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            // Kaki kiri
+            ctx.moveTo(-6, 0);
+            ctx.lineTo(-9, 26);
+            // Kaki kanan
+            ctx.moveTo(6, 0);
+            ctx.lineTo(9, 26);
+            ctx.stroke();
+
+            // Jika Babak 3 (Berkubukan Betis), lukiskan bulatan fokus pada bahagian betis
+            if (pose === 'betis_shield') {
+                ctx.strokeStyle = 'rgba(251, 191, 36, 0.45)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.ellipse(0, 16, 16, 12, 0, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            // Kain Samping / Sarung Singkat
+            ctx.fillStyle = kainColor;
+            ctx.fillRect(-11, -12, 22, 16);
+
+            // Baju Tekua / Baju Melayu Tradisional
+            ctx.fillStyle = bajuColor;
+            ctx.beginPath();
+            ctx.roundRect(-12, -38 + bob, 24, 28, 4);
+            ctx.fill();
+
+            // Kepala
+            ctx.fillStyle = '#c2855a';
+            ctx.beginPath();
+            ctx.arc(0, -48 + bob, 9, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Tanjak / Semutar Kepala
+            ctx.fillStyle = isChild ? '#f59e0b' : kainColor;
+            ctx.beginPath();
+            ctx.moveTo(-10, -52 + bob);
+            ctx.lineTo(10, -52 + bob);
+            ctx.lineTo(13, -62 + bob);
+            ctx.lineTo(-4, -57 + bob);
+            ctx.closePath();
+            ctx.fill();
+
+            // Pergerakan Tangan mengikut Pose
+            ctx.strokeStyle = bajuColor;
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            if (pose === 'pointing') {
+                // Hang Nadim menunjuk ke arah pantai dengan penuh bijaksana
+                const pointWave = Math.sin(time * 5) * 4;
+                ctx.moveTo(-8, -32 + bob);
+                ctx.lineTo(-34, -42 + pointWave);
+                // Tangan kanan di dada tanda hormat
+                ctx.moveTo(8, -32 + bob);
+                ctx.lineTo(2, -22 + bob);
+            } else if (pose === 'celebrating') {
+                // Rakyat mengangkat senjata/parang meraikan kemenangan
+                const cheer = Math.abs(Math.sin(time * 7 + x)) * 12;
+                ctx.moveTo(-10, -32 + bob);
+                ctx.lineTo(-22, -55 - cheer);
+                ctx.moveTo(10, -32 + bob);
+                ctx.lineTo(20, -50 - cheer);
+            } else if (pose === 'betis_shield') {
+                // Tangan menahan cemas
+                const tremble = Math.sin(time * 20 + x) * 2;
+                ctx.moveTo(-10, -32);
+                ctx.lineTo(-20 + tremble, -25);
+                ctx.moveTo(10, -32);
+                ctx.lineTo(18 + tremble, -20);
+            } else {
+                // Biasa
+                ctx.moveTo(-10, -32 + bob);
+                ctx.lineTo(-14, -14 + bob);
+                ctx.moveTo(10, -32 + bob);
+                ctx.lineTo(14, -14 + bob);
+            }
+            ctx.stroke();
+
+            // Jika Hang Nadim (Babak 4), tambahkan aura cahaya kebijaksanaan
+            if (isChild && pose === 'pointing') {
+                ctx.strokeStyle = 'rgba(250, 204, 21, 0.7)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(0, -30, 38 + Math.sin(time * 4) * 4, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            ctx.restore();
+        }
+
+        // Lukis Benteng Deretan Batang Pisang (Babak 5)
+        function drawBananaTrunkBarricade(sceneTime) {
+            // Animasi batang pisang dipacakkan naik pada 3 saat pertama Babak 5
+            const buildProgress = Math.min(1, sceneTime / 2.8);
+
+            for (let i = 0; i < 9; i++) {
+                const tx = width * 0.49 + i * (width * 0.024);
+                const ty = height * (0.61 + (i % 3) * 0.06);
+                const trunkHeight = 76 * buildProgress;
+
+                if (trunkHeight <= 2) continue;
+
+                ctx.save();
+                ctx.translate(tx, ty);
+
+                // Bayang-bayang batang pisang di atas pasir
+                ctx.fillStyle = 'rgba(0,0,0,0.35)';
+                ctx.beginPath();
+                ctx.ellipse(4, 4, 12, 5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Batang Pisang Hijau Berlapis
+                const trunkGrad = ctx.createLinearGradient(-9, 0, 9, 0);
+                trunkGrad.addColorStop(0, '#365314');
+                trunkGrad.addColorStop(0.4, '#65a30d');
+                trunkGrad.addColorStop(0.8, '#84cc16');
+                trunkGrad.addColorStop(1, '#3f6212');
+
+                ctx.fillStyle = trunkGrad;
+                ctx.beginPath();
+                ctx.roundRect(-9, -trunkHeight, 18, trunkHeight, 3);
+                ctx.fill();
+
+                // Keratan Rentas Gelung Batang Pisang di Bahagian Atas
+                ctx.fillStyle = '#ecfccb';
+                ctx.beginPath();
+                ctx.ellipse(0, -trunkHeight, 9, 4, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#65a30d';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                ctx.restore();
+            }
+        }
+
+        // Lukis Ikan Todak dengan Muncung Tajam
+        function drawTodakFish(x, y, angle, length, isStuck = false, time = 0) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+
+            // Jika tersangkut pada batang pisang, ekornya menggelepar sedikit
+            const tailWiggle = isStuck ? Math.sin(time * 28 + x) * 0.12 : 0;
+            ctx.rotate(tailWiggle);
+
+            // Ekor Bercabang (Di sebelah kiri badan)
+            ctx.fillStyle = '#0284c7';
+            ctx.beginPath();
+            ctx.moveTo(-length * 0.6, 0);
+            ctx.lineTo(-length * 0.85, -10);
+            ctx.lineTo(-length * 0.75, 0);
+            ctx.lineTo(-length * 0.85, 10);
+            ctx.closePath();
+            ctx.fill();
+
+            // Badan Perak Memanjang Aerodinamik
+            const bodyGrad = ctx.createLinearGradient(0, -6, 0, 6);
+            bodyGrad.addColorStop(0, '#0369a1'); // Belakang biru gelap
+            bodyGrad.addColorStop(0.5, '#e0f2fe'); // Tengah perak berkilat
+            bodyGrad.addColorStop(1, '#94a3b8'); // Perut putih keperakan
+
+            ctx.fillStyle = bodyGrad;
+            ctx.beginPath();
+            ctx.ellipse(-length * 0.15, 0, length * 0.45, 5.5, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Muncung / Jongor Tajam Seperti Lembing (Menghala ke kanan +X)
+            ctx.fillStyle = '#f8fafc';
+            ctx.beginPath();
+            ctx.moveTo(length * 0.22, -3.5);
+            ctx.lineTo(length * 0.85, 0); // Hujung muncung tajam
+            ctx.lineTo(length * 0.22, 3.5);
+            ctx.closePath();
+            ctx.fill();
+
+            // Kilauan Tajam pada Hujung Muncung
+            ctx.strokeStyle = '#38bdf8';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(length * 0.25, 0);
+            ctx.lineTo(length * 0.85, 0);
+            ctx.stroke();
+
+            // Mata Ikan Todak
+            ctx.fillStyle = '#0f172a';
+            ctx.beginPath();
+            ctx.arc(length * 0.18, -1.5, 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        /**************************************************************************
+         * 6. PENGURUSAN ADEGAN MENGIKUT BABAK (1 HINGGA 5)
+         **************************************************************************/
+        function renderSceneActors(sceneIndex, sceneTime, time) {
+            const isStorm = (sceneIndex === 1 || sceneIndex === 2);
+
+            // 1. Lukis Kampung Melayu & Pokok Kelapa di Pesisir Pantai (Semua Babak)
+            drawMalayKampungHouse(width * 0.78, height * 0.50, 0.85, isStorm);
+            drawMalayKampungHouse(width * 0.90, height * 0.54, 1.0, isStorm);
+            drawCoconutTree(width * 0.67, height * 0.56, 0.95, time, isStorm);
+            drawCoconutTree(width * 0.84, height * 0.53, 1.1, time + 1.5, isStorm);
+            drawCoconutTree(width * 0.95, height * 0.60, 0.85, time + 3.0, isStorm);
+
+            // 2. Lakonan Watak Mengikut Babak
+            if (sceneIndex === 0) {
+                // BABAK 1: Suasana Damai Rakyat di Tepi Pantai
+                drawMalayCharacter({ x: width * 0.58, y: height * 0.65, scale: 0.95, bajuColor: '#0284c7', kainColor: '#b45309', pose: 'idle', time });
+                drawMalayCharacter({ x: width * 0.64, y: height * 0.68, scale: 1.0, bajuColor: '#15803d', kainColor: '#92400e', pose: 'idle', time });
+                drawMalayCharacter({ x: width * 0.72, y: height * 0.63, scale: 0.9, bajuColor: '#b91c1c', kainColor: '#ca8a04', isChild: true, pose: 'idle', time });
+                drawMalayCharacter({ x: width * 0.80, y: height * 0.70, scale: 1.05, bajuColor: '#7c2d12', kainColor: '#d97706', pose: 'idle', time });
+            } 
+            else if (sceneIndex === 1) {
+                // BABAK 2: Serangan Todak Bermula - Rakyat Terkejut & Berundur Cemas
+                const retreatOffset = Math.min(60, sceneTime * 8);
+                drawMalayCharacter({ x: width * 0.58 + retreatOffset, y: height * 0.65, scale: 0.95, bajuColor: '#0284c7', kainColor: '#b45309', pose: 'betis_shield', time });
+                drawMalayCharacter({ x: width * 0.65 + retreatOffset, y: height * 0.70, scale: 1.0, bajuColor: '#15803d', kainColor: '#92400e', pose: 'betis_shield', time });
+                drawMalayCharacter({ x: width * 0.74 + retreatOffset * 0.6, y: height * 0.66, scale: 1.0, bajuColor: '#b91c1c', kainColor: '#ca8a04', pose: 'betis_shield', time });
+            } 
+            else if (sceneIndex === 2) {
+                // BABAK 3: Paduka Seri Maharaja Menitahkan Rakyat Berkubukan Betis
+                drawRoyalElephantAndKing(width * 0.83, height * 0.62, 1.05, time);
+
+                // Barisan Rakyat Berdiri Rapat Berkubukan Betis di Gigi Pantai
+                for (let i = 0; i < 7; i++) {
+                    const rx = width * 0.48 + i * (width * 0.032);
+                    const ry = height * (0.60 + (i % 2) * 0.055);
+                    // Selepas 7 saat, sebahagian rakyat rebah terkorban terkena lompatan todak
+                    const isFallen = (sceneTime > 6.5 && (i === 1 || i === 3 || i === 5));
+                    drawMalayCharacter({
+                        x: rx,
+                        y: isFallen ? ry + 18 : ry,
+                        scale: 0.95,
+                        bajuColor: i % 2 === 0 ? '#991b1b' : '#1e3a8a',
+                        kainColor: '#b45309',
+                        pose: isFallen ? 'fallen' : 'betis_shield',
+                        time
+                    });
+                }
+            } 
+            else if (sceneIndex === 3) {
+                // BABAK 4: Hang Nadim Tampil di Hadapan Paduka Seri Maharaja Mencadangkan Batang Pisang
+                drawRoyalElephantAndKing(width * 0.78, height * 0.63, 1.15, time);
+
+                // Hang Nadim berdiri di hadapan baginda sambil menunjuk ke arah pantai
+                const nadimX = width * 0.62;
+                const nadimY = height * 0.67;
+                drawMalayCharacter({
+                    x: nadimX,
+                    y: nadimY,
+                    scale: 1.25,
+                    bajuColor: '#16a34a',
+                    kainColor: '#eab308',
+                    isChild: true,
+                    pose: 'pointing',
+                    time
+                });
+
+                // Label Nama "Hang Nadim" di atas kepala
+                ctx.save();
+                ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+                ctx.strokeStyle = '#fbbf24';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.roundRect(nadimX - 48, nadimY - 78, 96, 22, 6);
+                ctx.fill();
+                ctx.stroke();
+                ctx.fillStyle = '#fde047';
+                ctx.font = 'bold 11px "Plus Jakarta Sans", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('HANG NADIM', nadimX, nadimY - 63);
+                ctx.restore();
+
+                // Para pembesar & rakyat mendengar dengan penuh kagum
+                drawMalayCharacter({ x: width * 0.68, y: height * 0.73, scale: 1.0, bajuColor: '#1e40af', kainColor: '#d97706', pose: 'idle', time });
+                drawMalayCharacter({ x: width * 0.88, y: height * 0.71, scale: 1.0, bajuColor: '#991b1b', kainColor: '#b45309', pose: 'idle', time });
+            } 
+            else if (sceneIndex === 4) {
+                // BABAK 5: Benteng Batang Pisang Menghalang Todak & Kemenangan Rakyat
+                drawBananaTrunkBarricade(sceneTime);
+
+                // Lukis todak-todak yang telah tercacak dan tersangkut pada batang pisang
+                stuckTodaks.forEach(st => {
+                    drawTodakFish(st.x, st.y, st.angle, st.length, true, time);
+                });
+
+                // Hang Nadim & Rakyat meraikan kejayaan di belakang benteng batang pisang
+                const poseType = sceneTime > 9 ? 'celebrating' : 'idle';
+                drawMalayCharacter({ x: width * 0.66, y: height * 0.65, scale: 1.1, bajuColor: '#16a34a', kainColor: '#eab308', isChild: true, pose: poseType, time });
+                drawMalayCharacter({ x: width * 0.72, y: height * 0.68, scale: 1.0, bajuColor: '#dc2626', kainColor: '#b45309', pose: poseType, time });
+                drawMalayCharacter({ x: width * 0.78, y: height * 0.64, scale: 1.0, bajuColor: '#0284c7', kainColor: '#d97706', pose: poseType, time });
+                drawMalayCharacter({ x: width * 0.84, y: height * 0.70, scale: 1.05, bajuColor: '#15803d', kainColor: '#ca8a04', pose: poseType, time });
+            }
+        }
+
+        // Kemas kini & Lukis Fizik Ikan Todak serta Zarah Percikan
+        function updateAndDrawProjectiles(dt, sceneIndex, sceneTime, time) {
+            if (isPlaying) {
+                // Kadar kemunculan ikan todak mengikut babak
+                let spawnChance = 0;
+                if (sceneIndex === 1 && sceneTime > 2.0) spawnChance = 0.22; // Babak 2: Serangan sengit
+                if (sceneIndex === 2) spawnChance = 0.25;                    // Babak 3: Serangan ke atas kubu betis
+                if (sceneIndex === 3) spawnChance = 0.05;                    // Babak 4: Masih ada sedikit todak di laut
+                if (sceneIndex === 4 && sceneTime > 3.0 && sceneTime < 11.5) spawnChance = 0.28; // Babak 5: Todak menyerang batang pisang
+
+                if (Math.random() < spawnChance) {
+                    spawnTodak(sceneIndex, sceneTime);
+                }
+            }
+
+            // Kemas kini ikan todak di udara
+            for (let i = todakList.length - 1; i >= 0; i--) {
+                const t = todakList[i];
+                if (isPlaying) {
+                    t.elapsed += dt;
+                    t.x += t.vx * dt;
+                    t.y += t.vy * dt;
+                    t.vy += t.gravity * dt;
+                    t.angle = Math.atan2(t.vy, t.vx);
+                }
+
+                // Lukis garisan jejakan pantas (Motion Trail)
+                ctx.strokeStyle = 'rgba(224, 242, 254, 0.35)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(t.x, t.y);
+                ctx.lineTo(t.x - Math.cos(t.angle) * 35, t.y - Math.sin(t.angle) * 35);
+                ctx.stroke();
+
+                drawTodakFish(t.x, t.y, t.angle, t.length, false, time);
+
+                // Semak jika todak tiba di sasaran pantai / batang pisang
+                if (t.elapsed >= t.maxTime) {
+                    if (t.willStickToBanana && sceneIndex === 4) {
+                        // Tercacak pada batang pisang!
+                        if (stuckTodaks.length < 38) {
+                            stuckTodaks.push({
+                                x: t.targetX - 10,
+                                y: t.targetY - 15 - Math.random() * 35,
+                                angle: t.angle * 0.35,
+                                length: t.length
+                            });
+                        }
+                        spawnWaterSplash(t.targetX, t.targetY - 25, 8, '#84cc16'); // Serpihan serat batang pisang
+                        soundEngine.playTodakSwoosh(true);
+                        cameraShake = Math.min(5, cameraShake + 1.2);
+                    } else if (sceneIndex === 2) {
+                        // Mengenai kubu betis rakyat pada Babak 3
+                        spawnWaterSplash(t.x, t.y, 8, '#ef4444');
+                        cameraShake = Math.min(7, cameraShake + 1.8);
+                    } else {
+                        // Mengenai pasir pantai
+                        spawnWaterSplash(t.x, t.y, 5, '#fde047');
+                    }
+                    todakList.splice(i, 1);
+                }
+            }
+
+            // Kemas kini & lukis zarah percikan
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                if (isPlaying) {
+                    p.x += p.vx * dt;
+                    p.y += p.vy * dt;
+                    p.vy += 380 * dt;
+                    p.life -= dt;
+                    p.alpha = Math.max(0, p.life * 2);
+                }
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.alpha;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1;
+
+                if (p.life <= 0) particles.splice(i, 1);
+            }
+        }
+
+        /**************************************************************************
+         * 7. PENGURUSAN KAMERA DINAMIK (ZOOM, PAN & CAMERA SHAKE)
+         **************************************************************************/
+        function applyDynamicCamera(sceneIndex, sceneTime) {
+            let zoom = 1.0;
+            let focusX = width * 0.5;
+            let focusY = height * 0.5;
+
+            if (sceneIndex === 0) {
+                // Babak 1: Panning perlahan merentasi pantai Singapura yang damai
+                zoom = 1.03 + Math.sin(sceneTime * 0.2) * 0.02;
+            } else if (sceneIndex === 1) {
+                // Babak 2: Fokus ke laut tempat todak melompat
+                zoom = 1.06;
+                focusX = width * 0.42;
+            } else if (sceneIndex === 2) {
+                // Babak 3: Zoom dramatik ke arah kubu betis rakyat di pantai
+                zoom = lerp(1.04, 1.14, sceneTime / SCENE_DURATION);
+                focusX = width * 0.58;
+                focusY = height * 0.62;
+            } else if (sceneIndex === 3) {
+                // Babak 4: Zoom fokus kepada Hang Nadim & Paduka Seri Maharaja
+                zoom = lerp(1.08, 1.22, Math.min(1, sceneTime / 8));
+                focusX = width * 0.68;
+                focusY = height * 0.63;
+            } else if (sceneIndex === 4) {
+                // Babak 5: Fokus kepada benteng batang pisang kemudian wide shot kemenangan
+                zoom = sceneTime < 9 ? 1.12 : lerp(1.12, 1.02, (sceneTime - 9) / 6);
+                focusX = width * 0.58;
+                focusY = height * 0.60;
+            }
+
+            // Gegaran kamera (Camera Shake) semasa serangan todak
+            let shakeX = 0;
+            let shakeY = 0;
+            if (cameraShake > 0) {
+                shakeX = (Math.random() - 0.5) * cameraShake * 2;
+                shakeY = (Math.random() - 0.5) * cameraShake * 2;
+                cameraShake = Math.max(0, cameraShake - 0.3);
+            }
+
+            ctx.translate(width / 2 + shakeX, height / 2 + shakeY);
+            ctx.scale(zoom, zoom);
+            ctx.translate(-focusX, -focusY);
+        }
+
+        /**************************************************************************
+         * 8. KEMAS KINI ANTARAMUKA PENGGUNA (UI, SARI KATA & GARIS MASA)
+         **************************************************************************/
+        const badgeBabak = document.getElementById('badgeBabak');
+        const sceneTitle = document.getElementById('sceneTitle');
+        const classicQuote = document.getElementById('classicQuote');
+        const mainSubtitle = document.getElementById('mainSubtitle');
+        const historicalFactText = document.getElementById('historicalFactText');
+        const timelineSlider = document.getElementById('timelineSlider');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const sceneTabs = document.querySelectorAll('.scene-tab');
+        const statusIndicator = document.getElementById('statusIndicator');
+        const statusText = document.getElementById('statusText');
+
+        let lastActiveSceneIdx = -1;
+
+        function formatTime(sec) {
+            const m = Math.floor(sec / 60);
+            const s = Math.floor(sec % 60);
+            return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }
+
+        function updateUI(sceneIndex, sceneTime) {
+            const currentScene = SCENES[sceneIndex];
+
+            // Kemas kini maklumat babak jika bertukar babak
+            if (sceneIndex !== lastActiveSceneIdx) {
+                badgeBabak.textContent = `BABAK ${sceneIndex + 1} / 5`;
+                sceneTitle.textContent = currentScene.title;
+                classicQuote.textContent = currentScene.classic;
+                historicalFactText.textContent = currentScene.fact;
+
+                // Kosongkan todak yang tersangkut jika bukan Babak 5
+                if (sceneIndex !== 4) {
+                    stuckTodaks = [];
+                }
+
+                // Kemas kini butang tab Babak 1-5
+                sceneTabs.forEach((tab, idx) => {
+                    if (idx === sceneIndex) {
+                        tab.className = "scene-tab px-2.5 py-1 rounded text-xs font-semibold transition cursor-pointer bg-amber-500 text-slate-950 shadow";
+                    } else {
+                        tab.className = "scene-tab px-2.5 py-1 rounded text-xs font-semibold transition cursor-pointer bg-slate-800 text-slate-300 hover:bg-slate-700";
+                    }
+                });
+
+                lastActiveSceneIdx = sceneIndex;
+            }
+
+            // Cari sari kata semasa dalam babak
+            const activeSub = currentScene.subtitles.find(s => sceneTime >= s.start && sceneTime <= s.end) || currentScene.subtitles[currentScene.subtitles.length - 1];
+            if (mainSubtitle.textContent !== activeSub.text) {
+                mainSubtitle.textContent = activeSub.text;
+            }
+
+            // Kemas kini slider & paparan masa
+            timelineSlider.value = Math.round((globalTime / TOTAL_DURATION) * 1000);
+            timeDisplay.textContent = `${formatTime(globalTime)} / ${formatTime(TOTAL_DURATION)}`;
+        }
+
+        /**************************************************************************
+         * 9. KITARAN ANIMASI UTAMA (60 FPS GAME LOOP)
+         **************************************************************************/
+        function animateLoop(now) {
+            const dt = Math.min(0.05, (now - lastFrameTime) / 1000);
+            lastFrameTime = now;
+
+            if (isPlaying) {
+                globalTime += dt;
+                if (globalTime >= TOTAL_DURATION) {
+                    globalTime = TOTAL_DURATION;
+                    pauseAnimation(true);
+                    // Paparkan panel pengajaran secara automatik apabila tamat Babak 5
+                    if (!moralShownAutomatically) {
+                        moralShownAutomatically = true;
+                        openMoralModal();
+                    }
+                }
+            }
+
+            const sceneIndex = Math.min(4, Math.floor(globalTime / SCENE_DURATION));
+            const sceneTime = globalTime - (sceneIndex * SCENE_DURATION);
+
+            // Kemas kini bunyi Web Audio
+            soundEngine.updateAmbience(sceneIndex, sceneTime, isPlaying);
+
+            // Lukis Kanvas Sinematik
+            ctx.save();
+            ctx.clearRect(0, 0, width, height);
+
+            // Terapkan kamera dinamik (Zoom, Pan, Shake)
+            applyDynamicCamera(sceneIndex, sceneTime);
+
+            // Dapatkan palet warna babak semasa
+            const palette = getBlendedPalette(sceneIndex, sceneTime);
+
+            // 1. Lukis Langit, Matahari & Awan
+            drawSkyAndHorizon(palette, sceneIndex, now / 1000);
+
+            // 2. Lukis Laut Berlapis, Perahu & Pantai Singapura
+            drawSeaAndBeach(palette, sceneIndex, now / 1000);
+
+            // 3. Lukis Watak, Kampung, Gajah Diraja, Hang Nadim & Batang Pisang
+            renderSceneActors(sceneIndex, sceneTime, now / 1000);
+
+            // 4. Lukis Lompatan Ikan Todak & Zarah Percikan Air
+            updateAndDrawProjectiles(dt, sceneIndex, sceneTime, now / 1000);
+
+            ctx.restore();
+
+            // Kemas kini UI & Sari Kata
+            updateUI(sceneIndex, sceneTime);
+
+            requestAnimationFrame(animateLoop);
+        }
+
+        /**************************************************************************
+         * 10. KAWALAN INTERAKTIF PENGGUNA (PLAY, PAUSE, REPLAY, SCRUBBER, MODAL)
+         **************************************************************************/
+        function playAnimation() {
+            soundEngine.init();
+            if (globalTime >= TOTAL_DURATION) {
+                globalTime = 0;
+                stuckTodaks = [];
+                todakList = [];
+            }
+            isPlaying = true;
+            statusIndicator.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
+            statusText.textContent = "Sedang Dimainkan (60 FPS Sinematik)";
+        }
+
+        function pauseAnimation(isEnded = false) {
+            isPlaying = false;
+            statusIndicator.className = isEnded ? "w-2 h-2 rounded-full bg-amber-400" : "w-2 h-2 rounded-full bg-rose-400";
+            statusText.textContent = isEnded ? "Animasi Tamat - Sedia Diulang" : "Dijeda (Paused)";
+        }
+
+        function replayAnimation() {
+            soundEngine.init();
+            globalTime = 0;
+            todakList = [];
+            stuckTodaks = [];
+            particles = [];
+            moralShownAutomatically = false;
+            closeMoralModal();
+            playAnimation();
+        }
+
+        // Acara Butang Skrin Permulaan
+        document.getElementById('btnStartExperience').addEventListener('click', () => {
+            const splash = document.getElementById('splashScreen');
+            splash.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => splash.classList.add('hidden'), 700);
+            playAnimation();
+        });
+
+        // Acara Butang Main, Jeda, Ulang
+        document.getElementById('btnPlay').addEventListener('click', playAnimation);
+        document.getElementById('btnPause').addEventListener('click', () => pauseAnimation(false));
+        document.getElementById('btnReplay').addEventListener('click', replayAnimation);
+
+        // Acara Pemilih Babak 1-5
+        sceneTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetScene = parseInt(tab.getAttribute('data-scene'), 10);
+                globalTime = targetScene * SCENE_DURATION + 0.05;
+                todakList = [];
+                if (targetScene !== 4) stuckTodaks = [];
+                playAnimation();
+            });
+        });
+
+        // Acara Slider Garis Masa (Scrubber)
+        timelineSlider.addEventListener('input', (e) => {
+            const ratio = parseFloat(e.target.value) / 1000;
+            globalTime = ratio * TOTAL_DURATION;
+            todakList = [];
+        });
+
+        // Acara Butang Audio Mute/Unmute
+        document.getElementById('btnMute').addEventListener('click', () => {
+            soundEngine.init();
+            const muted = soundEngine.toggleMute();
+            document.getElementById('iconSoundOn').classList.toggle('hidden', muted);
+            document.getElementById('iconSoundOff').classList.toggle('hidden', !muted);
+            document.getElementById('muteLabel').textContent = muted ? 'Audio: Senyap' : 'Audio: Aktif';
+        });
+
+        // Acara Kad Nota Sejarah
+        const historicalCard = document.getElementById('historicalCard');
+        document.getElementById('btnToggleFact').addEventListener('click', () => {
+            historicalCard.classList.toggle('hidden');
+        });
+        document.getElementById('btnCloseFact').addEventListener('click', () => {
+            historicalCard.classList.add('hidden');
+        });
+
+        // Acara Modal Pengajaran & Nilai Murni
+        const moralModal = document.getElementById('moralModal');
+        function openMoralModal() {
+            moralModal.classList.remove('hidden');
+            setTimeout(() => moralModal.classList.remove('opacity-0'), 20);
+        }
+        function closeMoralModal() {
+            moralModal.classList.add('opacity-0');
+            setTimeout(() => moralModal.classList.add('hidden'), 300);
+        }
+
+        document.getElementById('btnShowMoral').addEventListener('click', openMoralModal);
+        document.getElementById('btnCloseMoral').addEventListener('click', closeMoralModal);
+        document.getElementById('btnDismissMoral').addEventListener('click', closeMoralModal);
+        document.getElementById('btnReplayFromModal').addEventListener('click', replayAnimation);
+
+        // Mulakan Kitaran Visual Semasa Muat Halaman
+        window.onload = function () {
+            lastFrameTime = performance.now();
+            requestAnimationFrame(animateLoop);
+        };
+    </script>
+</body>
+</html>
